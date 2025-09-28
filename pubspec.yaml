@@ -1,0 +1,49 @@
+name: geo
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '^3.9.2'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_map: ^6.0.0
+  geolocator: ^10.1.0
+  latlong2: ^0.9.0
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.jpg
+    - assets/Cristian.jpg
+    - assets/Milena.jpg
+    - assets/Javier.jpg
+    - assets/restaurantes.png
+    - assets/parques.png
+    - assets/plazas.png
+    - assets/otros.png
+    - assets/misterpollo.jpg
+    - assets/broasterking.jpg
+    - assets/universidad.jpg
+    - assets/hospital.jpg
+    - assets/plazamercado.jpg
+    - assets/granplaza.jpg
+    - assets/santander.jpg
+    - assets/20dejulio.jpg
+    - assets/interes.jpg
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/logo.jpg"
