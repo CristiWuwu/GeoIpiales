@@ -20,113 +20,140 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Fondo institucional explícito
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue,
-        title: Image.asset('assets/logo.jpg', height: 40),
+        backgroundColor: const Color(0xFF15EAFF),
+        toolbarHeight: 64,
+        title: Image.asset('assets/logo.jpg', height: 52),
         centerTitle: true,
+        elevation: 0,
       ),
-      body: Column(
+      body: Stack(
         children: [
-          const EncabezadoInstitucional(),
-          const SizedBox(height: 16),
-          Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                'assets/interes.jpg',
-                width: 220,
-                fit: BoxFit.cover,
-              ),
-            ),
+          // Fondo institucional
+          Positioned.fill(
+            child: Image.asset('assets/fondo.jpg', fit: BoxFit.cover),
           ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 0.9,
-                children: categorias.entries.map((entry) {
-                  final nombre = entry.key;
-                  final info = entry.value;
-
-                  Widget destino;
-                  switch (nombre) {
-                    case 'Restaurantes':
-                      destino = RestaurantesPage(info: info);
-                      break;
-                    case 'Parques':
-                      destino = ParquesPage(info: info);
-                      break;
-                    case 'Plazas':
-                      destino = PlazasPage(info: info);
-                      break;
-                    case 'Otros':
-                      destino = OtrosPage(info: info);
-                      break;
-                    default:
-                      destino = Scaffold();
-                  }
-
-                  return ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => destino),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: info.color,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.all(12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+          // Contenido principal
+          Column(
+            children: [
+              const EncabezadoInstitucional(),
+              const SizedBox(height: 16),
+              Center(
+                child: Stack(
+                  children: [
+                    Text(
+                      'Lugares de interés',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 4
+                          ..color = Colors.black,
                       ),
-                      elevation: 6,
+                      textAlign: TextAlign.center,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/${nombre.toLowerCase()}.png',
-                          height: 80,
-                          width: 80,
+                    const Text(
+                      'Lugares de interés',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.9,
+                    children: categorias.entries.map((entry) {
+                      final nombre = entry.key;
+                      final info = entry.value;
+
+                      Widget destino;
+                      switch (nombre) {
+                        case 'Restaurantes':
+                          destino = RestaurantesPage(info: info);
+                          break;
+                        case 'Parques':
+                          destino = ParquesPage(info: info);
+                          break;
+                        case 'Plazas':
+                          destino = PlazasPage(info: info);
+                          break;
+                        case 'Otros':
+                          destino = OtrosPage(info: info);
+                          break;
+                        default:
+                          destino = Scaffold();
+                      }
+
+                      return ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => destino),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: info.color,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.all(12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          elevation: 6,
                         ),
-                        const SizedBox(height: 12),
-                        Stack(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              nombre,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 2
-                                  ..color = Colors.black,
-                              ),
-                              textAlign: TextAlign.center,
+                            Image.asset(
+                              'assets/${nombre.toLowerCase()}.png',
+                              height: 80,
+                              width: 80,
                             ),
-                            Text(
-                              nombre,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.center,
+                            const SizedBox(height: 12),
+                            Stack(
+                              children: [
+                                Text(
+                                  nombre,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    foreground: Paint()
+                                      ..style = PaintingStyle.stroke
+                                      ..strokeWidth = 2
+                                      ..color = Colors.black,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  nombre,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  );
-                }).toList(),
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
@@ -141,7 +168,7 @@ class EncabezadoInstitucional extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blue[100],
+        color: Colors.blue[100]?.withOpacity(0.9),
         boxShadow: [
           BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
         ],

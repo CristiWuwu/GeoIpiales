@@ -42,6 +42,7 @@ flutter:
     - assets/santander.jpg
     - assets/20dejulio.jpg
     - assets/interes.jpg
+    - assets/fondo.jpg
 
 flutter_launcher_icons:
   android: true

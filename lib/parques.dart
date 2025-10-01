@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'ui.dart';
-import 'helpers.dart'; // Importa el helper centralizado
+import 'helpers.dart';
 
 class ParquesPage extends StatelessWidget {
   final CategoriaInfo info;
@@ -94,93 +94,101 @@ class ParquesPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          const EncabezadoInstitucional(),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: info.lugares.length,
-              itemBuilder: (context, index) {
-                final nombre = info.lugares[index].keys.first;
-                final coordenadas = info.lugares[index][nombre]!;
-                final descripcion =
-                    descripciones[nombre] ?? 'Sin descripción disponible.';
-                final imagen = imagenes[nombre] ?? 'assets/parques.png';
+          Positioned.fill(
+            child: Image.asset('assets/fondo.jpg', fit: BoxFit.cover),
+          ),
+          Column(
+            children: [
+              const EncabezadoInstitucional(),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: info.lugares.length,
+                  itemBuilder: (context, index) {
+                    final nombre = info.lugares[index].keys.first;
+                    final coordenadas = info.lugares[index][nombre]!;
+                    final descripcion =
+                        descripciones[nombre] ?? 'Sin descripción disponible.';
+                    final imagen = imagenes[nombre] ?? 'assets/parques.png';
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: info.color,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        minimumSize: const Size.fromHeight(50),
-                      ),
-                      onPressed: () => navegarConRuta(
-                        context,
-                        nombre,
-                        coordenadas,
-                        info.color,
-                      ),
-                      child: Stack(
-                        children: [
-                          Text(
-                            nombre,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 1.5
-                                ..color = Colors.black,
-                            ),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: info.color,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            minimumSize: const Size.fromHeight(50),
+                            elevation: 6,
                           ),
-                          Text(
+                          onPressed: () => navegarConRuta(
+                            context,
                             nombre,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
+                            coordenadas,
+                            info.color,
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        imagen,
-                        height: 180,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: info.color, width: 1.5),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        descripcion,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
+                          child: Stack(
+                            children: [
+                              Text(
+                                nombre,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 1.5
+                                    ..color = Colors.black,
+                                ),
+                              ),
+                              Text(
+                                nombre,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                  ],
-                );
-              },
-            ),
+                        const SizedBox(height: 12),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            imagen,
+                            height: 180,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.9),
+                            border: Border.all(color: info.color, width: 1.5),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            descripcion,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),
