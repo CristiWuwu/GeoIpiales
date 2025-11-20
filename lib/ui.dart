@@ -4,6 +4,7 @@ import 'restaurantes.dart';
 import 'parques.dart';
 import 'plazas.dart';
 import 'otros.dart';
+import 'notas.dart'; // nuevo import
 
 class CategoriaInfo {
   final List<Map<String, LatLng>> lugares;
@@ -29,11 +30,9 @@ class HomePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Fondo institucional
           Positioned.fill(
             child: Image.asset('assets/fondo.jpg', fit: BoxFit.cover),
           ),
-          // Contenido principal
           Column(
             children: [
               const EncabezadoInstitucional(),
@@ -156,6 +155,29 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ],
+      ),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const NotasPage()),
+          );
+        },
+        child: Container(
+          width: 72,
+          height: 72,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 6,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Image.asset('assets/notas.png', fit: BoxFit.contain),
+        ),
       ),
     );
   }

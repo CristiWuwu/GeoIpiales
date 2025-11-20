@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'ui.dart';
 import 'helpers.dart';
+import 'servicio_rutas.dart'; // nuevo import
 
 class PlazasPage extends StatelessWidget {
   final CategoriaInfo info;
@@ -27,7 +28,6 @@ class PlazasPage extends StatelessWidget {
     Color color,
   ) async {
     final origen = await obtenerUbicacionActual();
-
     if (origen == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -40,6 +40,8 @@ class PlazasPage extends StatelessWidget {
       return;
     }
 
+    final puntosRuta = await obtenerRutaOSRM(origen, destino);
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -48,6 +50,7 @@ class PlazasPage extends StatelessWidget {
           origen: origen,
           destino: destino,
           color: color,
+          puntosRuta: puntosRuta,
         ),
       ),
     );
@@ -200,6 +203,7 @@ class MapaRuta extends StatelessWidget {
   final LatLng origen;
   final LatLng destino;
   final Color color;
+  final List<LatLng> puntosRuta;
 
   const MapaRuta({
     super.key,
@@ -207,6 +211,7 @@ class MapaRuta extends StatelessWidget {
     required this.origen,
     required this.destino,
     required this.color,
+    required this.puntosRuta,
   });
 
   @override
@@ -271,13 +276,8 @@ class MapaRuta extends StatelessWidget {
             ],
           ),
           PolylineLayer(
-            polylineCulling: false,
             polylines: [
-              Polyline(
-                points: [origen, destino],
-                strokeWidth: 4,
-                color: Colors.green,
-              ),
+              Polyline(points: puntosRuta, strokeWidth: 4, color: Colors.green),
             ],
           ),
         ],

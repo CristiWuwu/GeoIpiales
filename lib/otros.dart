@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'ui.dart';
 import 'helpers.dart';
+import 'servicio_rutas.dart'; // nuevo import
 
 class OtrosPage extends StatelessWidget {
   final CategoriaInfo info;
@@ -28,7 +29,6 @@ class OtrosPage extends StatelessWidget {
     Color color,
   ) async {
     final origen = await obtenerUbicacionActual();
-
     if (origen == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -41,6 +41,8 @@ class OtrosPage extends StatelessWidget {
       return;
     }
 
+    final puntosRuta = await obtenerRutaOSRM(origen, destino);
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -49,6 +51,7 @@ class OtrosPage extends StatelessWidget {
           origen: origen,
           destino: destino,
           color: color,
+          puntosRuta: puntosRuta,
         ),
       ),
     );
@@ -111,7 +114,6 @@ class OtrosPage extends StatelessWidget {
                     final coordenadas = info.lugares[index][nombre]!;
 
                     final nombreNormalizado = nombre.toLowerCase();
-
                     final descripcion = descripciones.entries
                         .firstWhere(
                           (e) => e.key.toLowerCase() == nombreNormalizado,
@@ -119,7 +121,6 @@ class OtrosPage extends StatelessWidget {
                               const MapEntry('', 'Sin descripción disponible.'),
                         )
                         .value;
-
                     final imagen = imagenes.entries
                         .firstWhere(
                           (e) => e.key.toLowerCase() == nombreNormalizado,
@@ -215,6 +216,7 @@ class MapaRuta extends StatelessWidget {
   final LatLng origen;
   final LatLng destino;
   final Color color;
+  final List<LatLng> puntosRuta;
 
   const MapaRuta({
     super.key,
@@ -222,6 +224,7 @@ class MapaRuta extends StatelessWidget {
     required this.origen,
     required this.destino,
     required this.color,
+    required this.puntosRuta,
   });
 
   @override
@@ -286,13 +289,8 @@ class MapaRuta extends StatelessWidget {
             ],
           ),
           PolylineLayer(
-            polylineCulling: false,
             polylines: [
-              Polyline(
-                points: [origen, destino],
-                strokeWidth: 4,
-                color: Colors.green,
-              ),
+              Polyline(points: puntosRuta, strokeWidth: 4, color: Colors.green),
             ],
           ),
         ],
