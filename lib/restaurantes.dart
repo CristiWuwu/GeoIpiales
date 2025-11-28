@@ -15,11 +15,15 @@ class RestaurantesPage extends StatelessWidget {
         'Especialidad en pollo asado, combos familiares y atención rápida.',
     'Broaster King':
         'Broaster crujiente con papas, gaseosa y sabor tradicional.',
+    'Press Burguer': 'Otro lugar para Broaster crujiente y muchas cosas mas.',
+    'La Merced': 'Un lugar para personas de la alta sociedad.',
   };
 
   final Map<String, String> imagenes = const {
     'Mr Pollo': 'assets/misterpollo.jpg',
     'Broaster King': 'assets/broasterking.jpg',
+    'Press Burguer': 'assets/press.jpg',
+    'La Merced': 'assets/merced.jpg',
   };
 
   void navegarConRuta(

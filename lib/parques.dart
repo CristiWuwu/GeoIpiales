@@ -15,11 +15,14 @@ class ParquesPage extends StatelessWidget {
         'Zona verde con historia, ideal para caminar y compartir.',
     'Parque Santander':
         'Espacio central con árboles, bancas y ambiente familiar.',
+    'Parque San Felipe':
+        'Espacio Para conocer mejor ipiales sentarse y disfrutar de este parque.',
   };
 
   final Map<String, String> imagenes = const {
     'Parque 20 de Julio': 'assets/20dejulio.jpg',
     'Parque Santander': 'assets/santander.jpg',
+    'Parque San Felipe': 'assets/felipe.jpg',
   };
 
   void navegarConRuta(

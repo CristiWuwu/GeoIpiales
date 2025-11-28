@@ -15,11 +15,16 @@ class OtrosPage extends StatelessWidget {
         'Centro médico regional con atención especializada.',
     'Universidad de nariño':
         'Institución educativa pública con enfoque académico y cultural.',
+    'Santuario De Las Lajas':
+        'Lugar sagrado y espiritual muy conocido en Ipiales ideal para turistas.',
+    'Hotel San Jose': 'Lugar Para hospedarse cerca del Terminal de Ipiales.',
   };
 
   final Map<String, String> imagenes = const {
     'Hospital civil de ipiales': 'assets/hospital.jpg',
     'Universidad de nariño': 'assets/universidad.jpg',
+    'Santuario De Las Lajas': 'assets/lajas.jpg',
+    'Hotel San Jose': 'assets/jose.jpg',
   };
 
   void navegarConRuta(

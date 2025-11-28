@@ -49,6 +49,12 @@ flutter:
     - assets/interes.jpg
     - assets/fondo.jpg
     - assets/notas.png
+    - assets/press.jpg
+    - assets/merced.jpg
+    - assets/felipe.jpg
+    - assets/lajas.jpg
+    - assets/jose.jpg
+    - assets/terminal.jpg
 
 flutter_launcher_icons:
   android: true

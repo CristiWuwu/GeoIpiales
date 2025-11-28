@@ -14,11 +14,13 @@ class PlazasPage extends StatelessWidget {
     'Gran plaza':
         'Espacio amplio para eventos, comercio y encuentro ciudadano.',
     'Plaza de Mercado': 'Centro tradicional de abastecimiento y cultura local.',
+    'Terminal De Ipiales': 'Centro De transporte.',
   };
 
   final Map<String, String> imagenes = const {
     'Gran plaza': 'assets/granplaza.jpg',
     'Plaza de Mercado': 'assets/plazamercado.jpg',
+    'Terminal De Ipiales': 'assets/terminal.jpg',
   };
 
   void navegarConRuta(
